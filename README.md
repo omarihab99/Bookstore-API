@@ -1,6 +1,6 @@
 # Book-Store-Project
 This is a Backend API for a bookstore application with some functionality for admins. The API is built using Node.js and Express. To easily extend the app functionality, the project directory is structured as follows:
-
+```
 ├── README.md
 ├── package-lock.json
 ├── package.json
@@ -29,4 +29,4 @@ This is a Backend API for a bookstore application with some functionality for ad
     │   ├── products.service.js
     │   └── users.service.js
     └── utils
-
+```
