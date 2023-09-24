@@ -1,6 +1,14 @@
-# Book-Store-Project
-This is a Backend API for a bookstore application with some functionality for admins. The API is built using Node.js and Express. To easily extend the app functionality, the project directory is structured as follows:
 
+# Bookstore
+
+This is a the backend for a bookstore web application that includes both customer and admin APIs.
+
+
+
+## Design
+
+To increate code readability and maintain clean architecture, the project directory is structured as follows:
+```
 ├── README.md
 ├── package-lock.json
 ├── package.json
@@ -29,4 +37,42 @@ This is a Backend API for a bookstore application with some functionality for ad
     │   ├── products.service.js
     │   └── users.service.js
     └── utils
+```
+This structure encourages the principle of "Separation of concerns" where each functionality, represented by its own function, resides in the file it belongs to. So, for example, if you want to add a new endpoint for products, you will make a the following steps:
+
+    1. Write the necessary controller in products.controller.js file.
+    2. Write its service function in products.services.js file.
+So, controller file is necessary for request or response transformation before sending it and service file will query the database.
+## Tech Stack
+
+**Server:** Node, Express, MongoDB
+
+**Database**: MongoDB, mongoose
+
+
+## API Reference (To be modified)
+
+#### Get all items
+
+```
+  GET /api/items
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `api_key` | `string` | **Required**. Your API key |
+
+#### Get item
+
+```
+  GET /api/items/${id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
+#### add(num1, num2)
+
+Takes two numbers and returns the sum.
 
