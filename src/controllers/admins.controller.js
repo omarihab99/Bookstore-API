@@ -49,7 +49,9 @@ const getDashboardInfoController = async (req, res) => {
 
 const getSalesReportController = async (req, res) => {
   try {
-    const { startDate, endDate } = req.body;
+    let { startDate, endDate } = req.body;
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
     const result = await getSalesReportService({ startDate, endDate });
     res.status(result.statusCode).json(result.data);
   } catch (error) {
@@ -60,36 +62,11 @@ const getSalesReportController = async (req, res) => {
 
 
 
-const getAllUsersController = async (req, res) => {
-  try {
-    const result = await getAllUsersService();
-    res.status(result.statusCode).json(result.data);
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
-const getUserController = async(req, res)=>{
-  try {
-    const result = await getUserService(req.params.email);
-    res.status(result.statusCode).json(result.data);
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
-const deleteUserController = async(req, res)=>{
-  try {
-    const result = await deleteUserService(req.params.email);
-    res.status(result.statusCode).json(result.message);
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
+
 module.exports = {
   adminLoginController,
   adminRegisterController,
   getDashboardInfoController,
-  getSalesReportController,
-  getAllUsersController,
-  getUserController,
-  deleteUserController,
+  getSalesReportController
+ 
 };

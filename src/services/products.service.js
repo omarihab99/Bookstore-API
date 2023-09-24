@@ -16,17 +16,8 @@ const getAllProductsService = async () => {
 };
 const addProductService = async (productInfo) => {
   try {
-    const {...category} = productInfo;
-    const cat = await Category.findOne({ name: category });
-    if (!cat) {
-      return {
-        statusCode: 404,
-        message: "Category not found",
-      };
-    }
     const product = await Product.create({
-      ...productInfo,
-      category: cat._id
+      ...productInfo
     });
     return {
       statusCode: 201,

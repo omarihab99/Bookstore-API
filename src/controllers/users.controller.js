@@ -1,7 +1,10 @@
 const {
   userLoginService,
   userRegisterService,
-  checkoutService
+  checkoutService,
+  getAllUsersService,
+  getUserService,
+  deleteUserService
 } = require("../services/users.service");
 const userLoginController = async (req, res) => {
   const { email, password } = req.body;
@@ -38,8 +41,36 @@ const checkoutController = async (req, res) => {
         res.status(500).json(error.message);
     }
 };
+
+const getAllUsersController = async (req, res) => {
+  try {
+    const result = await getAllUsersService();
+    res.status(result.statusCode).json(result.data);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+const getUserController = async(req, res)=>{
+  try {
+    const result = await getUserService(req.params.email);
+    res.status(result.statusCode).json(result.data);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+const deleteUserController = async(req, res)=>{
+  try {
+    const result = await deleteUserService(req.params.email);
+    res.status(result.statusCode).json(result.message);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
 module.exports = {
   userLoginController,
   userRegisterController,
-  checkoutController
+  checkoutController,
+  getAllUsersController,
+  getUserController,
+  deleteUserController,
 };

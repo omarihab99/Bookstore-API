@@ -106,8 +106,59 @@ const checkoutService = async (orderData, totalOrderPrice) => {
     };
   }
 };
+const getAllUsersService = async () => {
+  try {
+    const users = await User.find();
+    return {
+      statusCode: 200,
+      data: users,
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      data: error.message,
+    };
+  }
+};
+const getUserService = async (email) => {
+  try {
+    const user = await User.findOne({ email });
+    return {
+      statusCode: 200,
+      data: user,
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      data: error.message,
+    };
+  }
+};
+const deleteUserService = async (email) => {
+  try {
+    const user = await User.findOneAndDelete({ email });
+    if (!user) {
+      return {
+        statusCode: 404,
+        message: "User not found",
+      };
+    }
+    return {
+      statusCode: 200,
+      data: user,
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      data: error.message,
+    };
+  }
+};
 module.exports = {
   userLoginService,
   userRegisterService,
   checkoutService,
+  getAllUsersService,
+  getUserService,
+  deleteUserService,
 };

@@ -6,7 +6,7 @@ const Product = require("../models/Product.model");
 const Order = require("../models/Order.model");
 const jwt = require("jsonwebtoken");
 dotenv.config({ path: "src/.env" });
-
+const hash = (password) => createHash("sha256").update(password).digest("hex");
 const adminLoginService = async (adminInfo) => {
   try {
     const { email, password } = adminInfo;
@@ -116,6 +116,7 @@ const getDashboardInfoService = async ({ startDate, endDate }) => {
   }
 };
 
+
 const getSalesReportService = async ({ startDate, endDate }) => {
   try {
     const sales = await Order.aggregate([
@@ -128,22 +129,19 @@ const getSalesReportService = async ({ startDate, endDate }) => {
         },
       },
       {
-        $unwind: "$products",
+        $unwind: "$products"
       },
       {
         $group: {
-          _id: "$products.product.name",
-          // category: "$products.product.category",
-          productPrice: "$products.product.price",
-          totalPrice: {
-            $sum: "$totalPrice",
+          _id: {
+            date: "$createdAt",
           },
-          totalQuantitySold: {
-            $sum: "$products.quantity",
-          },
-        },
+          totalQuantitySold: { $sum: "$products.quantity" },
+          totalPrice: { $sum: "$products.totalPrice" }
+        }
       },
     ]);
+    console.log(sales)
     return {
       statusCode: 200,
       data: sales,
@@ -158,60 +156,12 @@ const getSalesReportService = async ({ startDate, endDate }) => {
 
 
 
-const getAllUsersService = async () => {
-  try {
-    const users = await User.find();
-    return {
-      statusCode: 200,
-      data: users,
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      data: error.message,
-    };
-  }
-};
-const getUserService = async (email) => {
-  try {
-    const user = await User.findOne({ email });
-    return {
-      statusCode: 200,
-      data: user,
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      data: error.message,
-    };
-  }
-};
-const deleteUserController = async (email) => {
-  try {
-    const user = await User.findOneAndDelete({ email });
-    if (!user) {
-      return {
-        statusCode: 404,
-        message: "User not found",
-      };
-    }
-    return {
-      statusCode: 200,
-      data: user,
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      data: error.message,
-    };
-  }
-};
+
+
 module.exports = {
   adminLoginService,
   adminRegisterService,
   getDashboardInfoService,
   getSalesReportService,
-  getAllUsersService,
-  getUserService,
-  deleteUserController,
+
 };
