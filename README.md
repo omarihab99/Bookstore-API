@@ -7,7 +7,7 @@ This is a the backend for a bookstore web application that includes both custome
 
 ## Design
 
-To increate code readability and maintain clean architecture, the project directory is structured as follows:
+To increase code readability and maintain clean architecture, the project directory is structured as follows:
 ```
 ├── README.md
 ├── package-lock.json
