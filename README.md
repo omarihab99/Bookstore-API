@@ -49,3 +49,10 @@ So, controller file is necessary for request or response transformation before s
 
 **Database**: MongoDB, mongoose
 
+## Run locally
+
+To run the project locally:
+
+ ` ` `bash
+npm run start
+ ` ` `
