@@ -53,6 +53,6 @@ So, controller file is necessary for request or response transformation before s
 
 To run the project locally:
 
- ` ` `bash
+```bash
 npm run start
- ` ` `
+```
